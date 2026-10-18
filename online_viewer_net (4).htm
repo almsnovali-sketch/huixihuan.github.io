@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的一周 — Моя неделя</title>
+
+<style>
+:root {
+--primary: #345c86;
+--primary-light: #eaf2fb;
+--accent: #df805f;
+--background: #f4f6fa;
+--card: #ffffff;
+--text: #283447;
+--muted: #65748b;
+--border: #dce3ed;
+--success: #26734d;
+}
+
+* {
+box-sizing: border-box;
+}
+
+body {
+margin: 0;
+font-family: Arial, "Noto Sans", sans-serif;
+color: var(--text);
+background: var(--background);
+line-height: 1.65;
+}
+
+header {
+background: linear-gradient(135deg, #345c86, #648db5);
+color: white;
+padding: 42px 20px;
+text-align: center;
+}
+
+header h1 {
+margin: 0;
+font-size: clamp(30px, 5vw, 46px);
+}
+
+header p {
+margin: 8px 0 0;
+font-size: 18px;
+}
+
+.container {
+max-width: 1000px;
+margin: 0 auto;
+padding: 20px;
+}
+
+.card {
+background: var(--card);
+border-radius: 16px;
+padding: 24px;
+margin: 20px 0;
+box-shadow: 0 4px 18px rgba(35, 56, 80, 0.06);
+border: 1px solid var(--border);
+}
+
+h2 {
+color: var(--primary);
+border-bottom: 2px solid var(--primary-light);
+padding-bottom: 10px;
+margin-top: 0;
+}
+
+h3 {
+color: var(--primary);
+margin-top: 25px;
+}
+
+h4 {
+margin-bottom: 8px;
+}
+
+.cn {
+font-family: "Noto Sans CJK SC", "Microsoft YaHei",
+"PingFang SC", sans-serif;
+}
+
+.example {
+background: var(--primary-light);
+border-left: 4px solid var(--primary);
+border-radius: 6px;
+padding: 12px 16px;
+margin: 12px 0;
+}
+
+.note {
+background: #fff6e9;
+border-left: 4px solid #e8a64b;
+padding: 12px 16px;
+border-radius: 6px;
+margin: 14px 0;
+}
+
+.instruction {
+color: var(--muted);
+font-style: italic;
+margin: 8px 0 14px;
+}
+
+.question {
+padding: 14px 0;
+border-bottom: 1px solid var(--border);
+}
+
+.question:last-child {
+border-bottom: none;
+}
+
+.question p {
+margin: 0 0 8px;
+}
+
+input[type="text"],
+textarea,
+select {
+font: inherit;
+border: 1px solid #bdc9d8;
+border-radius: 7px;
+padding: 9px 11px;
+background: white;
+color: var(--text);
+max-width: 100%;
+}
+
+input[type="text"] {
+width: min(100%, 460px);
+}
+
+textarea {
+width: 100%;
+min-height: 120px;
+resize: vertical;
+}
+
+select {
+min-width: 160px;
+}
+
+button {
+font: inherit;
+cursor: pointer;
+border: none;
+border-radius: 8px;
+padding: 10px 16px;
+margin: 8px 5px 5px 0;
+background: var(--primary);
+color: white;
+transition: opacity .2s;
+}
+
+button:hover {
+opacity: .88;
+}
+
+button.secondary {
+background: #e8edf4;
+color: var(--text);
+}
+
+button.check {
+background: var(--success);
+}
+
+.answer {
+display: none;
+margin-top: 10px;
+padding: 12px;
+background: #edf8f0;
+border-radius: 8px;
+border: 1px solid #c9e7d1;
+}
+
+.answer.visible {
+display: block;
+}
+
+.feedback {
+font-weight: bold;
+margin-top: 10px;
+}
+
+.correct {
+color: var(--success);
+}
+
+.incorrect {
+color: #b44343;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin: 14px 0;
+}
+
+th, td {
+border: 1px solid var(--border);
+padding: 10px;
+text-align: left;
+vertical-align: top;
+}
+
+th {
+background: var(--primary-light);
+}
+
+.word-bank {
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+margin: 12px 0;
+}
+
+.word-bank span {
+background: #edf1f7;
+padding: 6px 10px;
+border-radius: 6px;
+}
+
+nav {
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+margin: 20px 0;
+}
+
+nav a {
+text-decoration: none;
+color: var(--primary);
+background: white;
+border: 1px solid var(--border);
+padding: 8px 12px;
+border-radius: 8px;
+}
+
+nav a:hover {
+background: var(--primary-light);
+}
+
+.progress-wrap {
+height: 8px;
+background: #dfe6ef;
+border-radius: 8px;
+overflow: hidden;
+margin-top: 12px;
+}
+
+.progress-bar {
+height: 100%;
+width: 0%;
+background: #6caa85;
+transition: width .3s;
+}
+
+footer {
+text-align: center;
+padding: 25px;
+color: var(--muted);
+}
+
+@media (max-width: 600px) {
+.container {
+padding: 10px;
+}
+
+.card {
+padding: 16px;
+margin: 12px 0;
+}
+
+header {
+padding: 30px 14px;
+}
+
+th, td {
+padding: 7px;
+font-size: 14px;
+}
+
+nav a {
+font-size: 14px;
+}
+}
+
+@media print {
+body {
+background: white;
+font-size: 12pt;
+}
+
+header {
+background: white;
+color: black;
+padding: 15px;
+}
+
+.container {
+max-width: none;
+padding: 0;
+}
+
+.card {
+box-shadow: none;
+border: 1px solid #ccc;
+break-inside: avoid;
+}
+
+button, nav, .progress-wrap {
+display: none !important;
+}
+
+.answer {
+display: block !important;
+background: white;
+}
+
+input[type="text"], textarea, select {
+border: 1px solid #999;
+}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1 class="cn">我的一周</h1>
+<p>Моя неделя · Китайский язык</p>
+<p>Грамматика, время, дни недели и повседневные занятия</p>
+</header>
+
+<div class="container">
+
+<nav>
+<a href="#grammar">Грамматика</a>
+<a href="#yidian">一点儿</a>
+<a href="#xian">先……然后……</a>
+<a href="#xihuan">喜欢 и 会</a>
+<a href="#dou">都</a>
+<a href="#time">Время</a>
+<a href="#combined">Общие задания</a>
+<a href="#final">Итоговый рассказ</a>
+</nav>
+
+<div class="card">
+<h2>Как работать с уроком</h2>
+<p>
+Выполняй задания по порядку. В упражнениях с полями для ответов
+можно записывать китайские предложения. После выполнения нажми
+«Показать ответы», чтобы свериться с образцом.
+</p>
+<p>В конце подготовь рассказ на тему <span class="cn">我的一周</span>.</p>
+<div class="progress-wrap">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+<p id="progressText">Выполнено упражнений: 0</p>
+<button onclick="window.print()" class="secondary">Распечатать урок</button>
+<button onclick="toggleAllAnswers(true)" class="secondary">Показать все ответы</button>
+<button onclick="toggleAllAnswers(false)" class="secondary">Скрыть все ответы</button>
+</div>
+
+<!-- ГРАММАТИКА -->
+
+<section class="card" id="grammar">
+<h2>1. Краткое повторение грамматики</h2>
+
+<table>
+<thead>
+<tr>
+<th>Конструкция</th>
+<th>Значение</th>
+<th>Пример</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="cn">一点（儿）</td>
+<td>Немного; чуть-чуть</td>
+<td><span class="cn">我想休息一点儿。</span><br>Я хочу немного отдохнуть.</td>
+</tr>
+<tr>
+<td class="cn">先……然后……</td>
+<td>Сначала…, затем…</td>
+<td><span class="cn">我先吃早饭，然后上班。</span><br>Сначала я завтракаю, затем иду на работу.</td>
+</tr>
+<tr>
+<td class="cn">喜欢 + глагол</td>
+<td>Любить что-либо делать</td>
+<td><span class="cn">我喜欢看书。</span><br>Я люблю читать.</td>
+</tr>
+<tr>
+<td class="cn">会 + глагол</td>
+<td>Уметь что-либо делать</td>
+<td><span class="cn">我会做饭。</span><br>Я умею готовить.</td>
+</tr>
+<tr>
+<td class="cn">都</td>
+<td>Все; оба; все вместе</td>
+<td><span class="cn">我们都喜欢看电影。</span><br>Мы все любим смотреть фильмы.</td>
+</tr>
+</tbody>
+</table>
+
+<div class="note">
+<strong>Важные нюансы</strong>
+<ul>
+<li><span class="cn">一点儿</span> обозначает небольшое количество или степень: <span class="cn">学习一点儿汉语</span> — немного позаниматься китайским.</li>
+<li><span class="cn">先……然后……</span> помогает выстроить последовательность действий.</li>
+<li><span class="cn">喜欢</span> выражает предпочтение, а <span class="cn">会</span> — приобретённое умение.</li>
+<li><span class="cn">都</span> обычно ставится перед глаголом или прилагательным: <span class="cn">我们都喜欢看电影。</span></li>
+</ul>
+</div>
+</section>
+
+<!-- 一点儿 -->
+
+<section class="card" id="yidian">
+<h2>2. Упражнения на 一点（儿）</h2>
+
+<h3>Упражнение 1. Собери предложение</h3>
+<p class="instruction">Составь предложения из предложенных слов.</p>
+
+<div class="question">
+<p>1. <span class="cn">汉语 / 我 / 学习 / 一点儿</span></p>
+<input type="text" placeholder="Напиши предложение" data-answer="我学习一点儿汉语。">
+</div>
+
+<div class="question">
+<p>2. <span class="cn">休息 / 想 / 我 / 一点儿</span></p>
+<input type="text" placeholder="Напиши предложение" data-answer="我想休息一点儿。">
+</div>
+
+<div class="question">
+<p>3. <span class="cn">书 / 看 / 一点儿 / 我</span></p>
+<input type="text" placeholder="Напиши предложение" data-answer="我看一点儿书。">
+</div>
+
+<div class="question">
+<p>4. <span class="cn">做 / 今天 / 饭 / 一点儿 / 我 / 想</span></p>
+<input type="text" placeholder="Напиши предложение" data-answer="今天我想做一点儿饭。">
+</div>
+
+<div class="question">
+<p>5. <span class="cn">运动 / 我 / 想 / 做 / 一点儿</span></p>
+<input type="text" placeholder="Напиши предложение" data-answer="我想做一点儿运动。">
+</div>
+
+<button class="check" onclick="checkInputs(this)">Проверить ответы</button>
+<button class="secondary" onclick="showAnswers(this)">Показать ответы</button>
+<div class="feedback"></div>
+<div class="answer">
+<ol class="cn">
+<li>我学习一点儿汉语。</li>
+<li>我想休息一点儿。</li>
+<li>我看一点儿书。</li>
+<li>今天我想做一点儿饭。</li>
+<li>我想做一点儿运动。</li>
+</ol>
+<p>В последнем предложении естественно сочетание <span class="cn">做一点儿运动</span>.</p>
+</div>
+
+<h3>Упражнение 2. Ответь на вопросы</h3>
+<p class="instruction">回答问题。 Отвечай полными предложениями, используя 一点儿 там, где это уместно.</p>
+
+<div class="example">
+<span class="cn">你每天学习汉语吗？</span><br>
+— <span class="cn">学习。我每天学习一点儿汉语。</span>
+</div>
+
+<ol class="cn">
+<li>你每天学习汉语吗？学习多长时间？</li>
+<li>你喜欢看书吗？每天看多少？</li>
+<li>你今天想休息吗？想休息多长时间？</li>
+<li>你每天做运动吗？做多少？</li>
+<li>你今天做饭吗？做什么？</li>
+</ol>
+
+<textarea placeholder="Запиши свои ответы на китайском языке"></textarea>
+
+<div class="note">
+Дополнительный пример, если конструкция уже изучалась:
+<span class="cn">你今天累吗？—— 有一点儿累。我想休息一点儿。</span>
+</div>
+</section>
+
+<!-- 先然后 -->
+
+<section class="card" id="xian">
+<h2>3. Упражнения на 先……然后……</h2>
+
+<h3>Упражнение 3. Расставь действия по порядку</h3>
+<p class="instruction">用「先……然后……」完成句子。 Составь предложения с 先……然后…….</p>
+
+<div class="example">
+<span class="cn">吃早饭 → 上班</span><br>
+<span class="cn">我先吃早饭，然后上班。</span>
+</div>
+
+<ol class="cn">
+<li>起床 → 吃早饭</li>
+<li>上学 → 学习汉语</li>
+<li>下班 → 做饭</li>
+<li>吃晚饭 → 看电视</li>
+<li>做作业 → 看电影</li>
+<li>做运动 → 休息</li>
+<li>看书 → 睡觉</li>
+<li>吃午饭 → 散步</li>
+<li>下学 → 做作业</li>
+<li>起床 → 骑自行车</li>
+</ol>
+
+<textarea placeholder="Составь 10 предложений"></textarea>
+
+<button class="secondary" onclick="showAnswers(this)">Показать возможные ответы</button>
+<div class="answer cn">
+<ol>
+<li>我先起床，然后吃早饭。</li>
+<li>我先上学，然后学习汉语。</li>
+<li>我先下班，然后做饭。</li>
+<li>我先吃晚饭，然后看电视。</li>
+<li>我先做作业，然后看电影。</li>
+<li>我先做运动，然后休息。</li>
+<li>我先看书，然后睡觉。</li>
+<li>我先吃午饭，然后散步。</li>
+<li>我先下学，然后做作业。</li>
+<li>我先起床，然后骑自行车。</li>
+</ol>
+</div>
+
+<h3>Упражнение 4. Исправь порядок слов</h3>
+<p class="instruction">下面的句子有语法错误，请改正。</p>
+
+<div class="question">
+<p>1. <span class="cn">我然后吃早饭先起床。</span></p>
+<input type="text" data-answer="我先起床，然后吃早饭。">
+</div>
+
+<div class="question">
+<p>2. <span class="cn">我先然后下班做饭。</span></p>
+<input type="text" data-answer="我先下班，然后做饭。">
+</div>
+
+<div class="question">
+<p>3. <span class="cn">我看电影先做作业，然后。</span></p>
+<input type="text" data-answer="我先做作业，然后看电影。">
+</div>
+
+<div class="question">
+<p>4. <span class="cn">然后我先睡觉看书。</span></p>
+<input type="text" data-answer="我先看书，然后睡觉。">
+</div>
+
+<div class="question">
+<p>5. <span class="cn">我先吃晚饭，然后看电视都。</span></p>
+<input type="text" data-answer="我先吃晚饭，然后看电视。">
+</div>
+
+<button class="check" onclick="checkInputs(this)">Проверить ответы</button>
+<button class="secondary" onclick="showAnswers(this)">Показать ответы</button>
+<div class="feedback"></div>
+<div class="answer cn">
+<ol>
+<li>我先起床，然后吃早饭。</li>
+<li>我先下班，然后做饭。</li>
+<li>我先做作业，然后看电影。</li>
+<li>我先看书，然后睡觉。</li>
+<li>我先吃晚饭，然后看电视。</li>
+</ol>
+<p>В пятом предложении 都 лишнее, если речь идёт только об одном человеке.</p>
+</div>
+
+<h3>Упражнение 5. Расскажи о своём дне</h3>
+<p class="instruction">用「先……然后……」说一说你的一天。</p>
+
+<p>Используй карточки с действиями, чтобы составить рассказ минимум из пяти предложений.</p>
+
+<div class="word-bank cn">
+<span>起床</span><span>吃早饭</span><span>上班</span>
+<span>上学</span><span>学习汉语</span><span>吃午饭</span>
+<span>做运动</span><span>下班</span><span>下学</span>
+<span>做饭</span><span>吃晚饭</span><span>看书</span>
+<span>看电视</span><span>睡觉</span>
+</div>
+
+<textarea placeholder="Напиши рассказ о своём дне"></textarea>
+
+<button class="secondary" onclick="showAnswers(this)">Показать образец</button>
+<div class="answer cn">
+我每天早上七点起床。我先起床，然后吃早饭。八点我去上班。
+中午十二点我吃午饭。下午六点我下班，然后做饭。
+晚上我先吃晚饭，然后看书。晚上十一点我睡觉。
+</div>
+</section>
+
+<!-- 喜欢 会 -->
+
+<section class="card" id="xihuan">
+<h2>4. Упражнения на 喜欢 и 会</h2>
+
+<div class="example">
+<p><strong class="cn">喜欢 + глагол</strong> — любить что-либо делать.</p>
+<p class="cn">我喜欢做饭。— Я люблю готовить.</p>
+<p><strong class="cn">会 + глагол</strong> — уметь что-либо делать.</p>
+<p class="cn">我会做饭。— Я умею готовить.</p>
+</div>
+
+<h3>Упражнение 6. Вставь 喜欢 или 会</h3>
+<p class="instruction">用「喜欢」或「会」完成句子。</p>
+<p>В некоторых предложениях возможны оба варианта, но значение будет разным.</p>
+
+<div class="question">
+<p>1. <span class="cn">我______看电影。我觉得电影很有意思。</span></p>
+<select data-answer="喜欢">
+<option value="">Выбери ответ</option>
+<option>喜欢</option><option>会</option>
+</select>
+</div>
+
+<div class="question">
+<p>2. <span class="cn">我______开车，我每天开车上班。</span></p>
+<select data-answer="会">
+<option value="">Выбери ответ</option>
+<option>喜欢</option><option>会</option>
+</select>
+</div>
+
+<div class="question">
+<p>3. <span class="cn">我______做饭，但是我不太喜欢做饭。</span></p>
+<select data-answer="会">
+<option value="">Выбери ответ</option>
+<option>喜欢</option><option>会</option>
+</select>
+</div>
+
+<div class="question">
+<p>4. <span class="cn">我______骑自行车，我每天骑自行车去上学。</span></p>
+<select data-answer="会">
+<option value="">Выбери ответ</option>
+<option>喜欢</option><option>会</option>
+</select>
+</div>
+
+<div class="question">
+<p>5. <span class="cn">我______看书，特别喜欢看中文书。</span></p>
+<select data-answer="喜欢">
+<option value="">Выбери ответ</option>
+<option>喜欢</option><option>会</option>
+</select>
+</div>
+
+<div class="question">
+<p>6. <span class="cn">我______做运动，因为运动很好。</span></p>
+<select data-answer="喜欢">
+<option value="">Выбери ответ</option>
+<option>喜欢</option><option>会</option>
+</select>
+</div>
+
+<div class="question">
+<p>7. <span class="cn">我______说汉语，但是我说得不太好。</span></p>
+<select data-answer="会">
+<option value="">Выбери ответ</option>
+<option>喜欢</option><option>会</option>
+</select>
+</div>
+
+<div class="question">
+<p>8. <span class="cn">我______做作业，但是我不喜欢做作业。</span></p>
+<select data-answer="会">
+<option value="">Выбери ответ</option>
+<option>喜欢</option><option>会</option>
+</select>
+</div>
+
+<button class="check" onclick="checkInputs(this)">Проверить ответы</button>
+<button class="secondary" onclick="showAnswers(this)">Показать ответы</button>
+<div class="feedback"></div>
+<div class="answer cn">
+1. 喜欢　2. 会　3. 会　4. 会　5. 喜欢　6. 喜欢　7. 会　8. 会
+</div>
+
+<h3>Упражнение 7. Составь два предложения</h3>
+<p class="instruction">用「喜欢」和「会」分别造句。</p>
+
+<p>Для каждого действия составь два предложения: одно с 喜欢, другое с 会.</p>
+
+<table>
+<thead>
+<tr><th>Действие</th><th>С 喜欢</th><th>С 会</th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="cn">做饭</td>
+<td><input type="text" placeholder="我喜欢……"></td>
+<td><input type="text" placeholder="我会……"></td>
+</tr>
+<tr>
+<td class="cn">开车</td>
+<td><input type="text" placeholder="我喜欢……"></td>
+<td><input type="text" placeholder="我会……"></td>
+</tr>
+<tr>
+<td class="cn">骑自行车</td>
+<td><input type="text" placeholder="我喜欢……"></td>
+<td><input type="text" placeholder="我会……"></td>
+</tr>
+<tr>
+<td class="cn">做运动</td>
+<td><input type="text" placeholder="我喜欢……"></td>
+<td><input type="text" placeholder="我会……"></td>
+</tr>
+<tr>
+<td class="cn">看书</td>
+<td><input type="text" placeholder="我喜欢……"></td>
+<td><input type="text" placeholder="По желанию"></td>
+</tr>
+<tr>
+<td class="cn">学习汉语</td>
+<td><input type="text" placeholder="我喜欢……"></td>
+<td><input type="text" placeholder="По желанию"></td>
+</tr>
+</tbody>
+</table>
+
+<button class="secondary" onclick="showAnswers(this)">Показать образцы</button>
+<div class="answer cn">
+我喜欢做饭。/ 我会做饭。<br>
+我喜欢开车。/ 我会开车。<br>
+我喜欢骑自行车。/ 我会骑自行车。<br>
+我喜欢做运动。/ 我会做运动。<br>
+我喜欢看书。<br>
+我喜欢学习汉语。
+</div>
+
+<div class="note">
+<strong>Запомни:</strong> 会 обозначает умение, а не просто желание или предпочтение.
+Например, 会开车、会做饭、会骑自行车.
+</div>
+
+<h3>Упражнение 8. Интервью в парах</h3>
+<p class="instruction">采访你的同学。</p>
+
+<p>Один ученик задаёт вопросы, второй отвечает. Затем поменяйтесь ролями.</p>
+
+<ol class="cn">
+<li>你喜欢看电影吗？</li>
+<li>你喜欢看电视吗？</li>
+<li>你会做饭吗？</li>
+<li>你会开车吗？</li>
+<li>你会骑自行车吗？</li>
+<li>你喜欢做运动吗？</li>
+<li>你喜欢看书吗？</li>
+<li>你喜欢学习汉语吗？</li>
+<li>你喜欢跑步还是散步？</li>
+<li>你喜欢在家休息还是出去玩？</li>
+</ol>
+
+<textarea placeholder="Запиши ответы партнёра и составь рассказ о нём"></textarea>
+
+<button class="secondary" onclick="showAnswers(this)">Показать образец</button>
+<div class="answer cn">
+我的同学喜欢看电影，也喜欢看书。他会做饭，但是不会开车。
+他喜欢散步，不太喜欢跑步。
+</div>
+</section>
+
+<!-- 都 -->
+
+<section class="card" id="dou">
+<h2>5. Упражнения на 都</h2>
+
+<div class="example">
+<p><span class="cn">我和我的朋友都喜欢看电影。</span></p>
+<p>Я и мой друг оба любим смотреть фильмы.</p>
+<p>都 обычно ставится перед глаголом: <span class="cn">我们都喜欢……</span></p>
+</div>
+
+<h3>Упражнение 9. Закончи предложения</h3>
+<p class="instruction">用「都」完成句子。</p>
+
+<div class="question"><p>1. <span class="cn">我和我朋友______喜欢看电影。</span></p><input type="text" data-answer="我和我朋友都喜欢看电影。"></div>
+<div class="question"><p>2. <span class="cn">星期六和星期天我______休息。</span></p><input type="text" data-answer="星期六和星期天我都休息。"></div>
+<div class="question"><p>3. <span class="cn">我爸爸和妈妈______会做饭。</span></p><input type="text" data-answer="我爸爸和妈妈都会做饭。"></div>
+<div class="question"><p>4. <span class="cn">我们班的学生______学习汉语。</span></p><input type="text" data-answer="我们班的学生都学习汉语。"></div>
+<div class="question"><p>5. <span class="cn">我哥哥和我______喜欢做运动。</span></p><input type="text" data-answer="我哥哥和我都喜欢做运动。"></div>
+<div class="question"><p>6. <span class="cn">星期一、星期二和星期三我______上班。</span></p><input type="text" data-answer="星期一、星期二和星期三我都上班。"></div>
+<div class="question"><p>7. <span class="cn">我们______喜欢骑自行车。</span></p><input type="text" data-answer="我们都喜欢骑自行车。"></div>
+<div class="question"><p>8. <span class="cn">我爸爸、妈妈和我______喜欢看书。</span></p><input type="text" data-answer="我爸爸、妈妈和我都喜欢看书。"></div>
+
+<button class="check" onclick="checkInputs(this)">Проверить ответы</button>
+<button class="secondary" onclick="showAnswers(this)">Показать ответы</button>
+<div class="feedback"></div>
+<div class="answer cn">
+1. 我和我朋友都喜欢看电影。<br>
+2. 星期六和星期天我都休息。<br>
+3. 我爸爸和妈妈都会做饭。<br>
+4. 我们班的学生都学习汉语。<br>
+5. 我哥哥和我都喜欢做运动。<br>
+6. 星期一、星期二和星期三我都上班。<br>
+7. 我们都喜欢骑自行车。<br>
+8. 我爸爸、妈妈和我都喜欢看书。
+</div>
+
+<h3>Упражнение 10. Соедини предложения</h3>
+<p class="instruction">用「都」把两个句子合成一个句子。</p>
+
+<div class="example">
+<span class="cn">我喜欢看书。我的朋友喜欢看书。</span><br>
+→ <span class="cn">我和我的朋友都喜欢看书。</span>
+</div>
+
+<ol class="cn">
+<li>我喜欢看电影。我的姐姐喜欢看电影。</li>
+<li>星期六我休息。星期天我休息。</li>
+<li>我会做饭。我妈妈会做饭。</li>
+<li>我喜欢跑步。我朋友喜欢跑步。</li>
+<li>星期一我上班。星期二我上班。</li>
+<li>我爸爸喜欢看电视。我妈妈喜欢看电视。</li>
+</ol>
+
+<textarea placeholder="Запиши объединённые предложения"></textarea>
+
+<button class="secondary" onclick="showAnswers(this)">Показать ответы</button>
+<div class="answer cn">
+<ol>
+<li>我和我的姐姐都喜欢看电影。</li>
+<li>星期六和星期天我都休息。</li>
+<li>我和我妈妈都会做饭。</li>
+<li>我和我朋友都喜欢跑步。</li>
+<li>星期一和星期二我都上班。</li>
+<li>我爸爸和妈妈都喜欢看电视。</li>
+</ol>
+</div>
+
+<h3>Упражнение 11. Найди ошибку</h3>
+<p class="instruction">改正句子中的错误。</p>
+
+<div class="question">
+<p>1. <span class="cn">我都喜欢看书。</span></p>
+<input type="text" placeholder="Исправь предложение">
+</div>
+<div class="question">
+<p>2. <span class="cn">我和朋友喜欢都看电影。</span></p>
+<input type="text" placeholder="Исправь предложение">
+</div>
+<div class="question">
+<p>3. <span class="cn">星期六我休息都。</span></p>
+<input type="text" placeholder="Исправь предложение">
+</div>
+<div class="question">
+<p>4. <span class="cn">我和我妈妈都会做饭。</span></p>
+<input type="text" placeholder="Правильно ли предложение?">
+</div>
+<div class="question">
+<p>5. <span class="cn">我们喜欢都学习汉语。</span></p>
+<input type="text" placeholder="Исправь предложение">
+</div>
+
+<button class="secondary" onclick="showAnswers(this)">Показать ответы и пояснения</button>
+<div class="answer">
+<ol>
+<li><span class="cn">我喜欢看书。</span> Если речь только об одном человеке, 都 не нужно.</li>
+<li><span class="cn">我和朋友都喜欢看电影。</span></li>
+<li><span class="cn">星期六我休息。</span> Если имеются в виду суббота и воскресенье: <span class="cn">星期六和星期天我都休息。</span></li>
+<li>Предложение правильное.</li>
+<li><span class="cn">我们都喜欢学习汉语。</span></li>
+</ol>
+</div>
+</section>
+
+<!-- ВРЕМЯ -->
+
+<section class="card" id="time">
+<h2>6. Время и дни недели</h2>
+
+<h3>Упражнение 12. Соедини время и действие</h3>
+<p class="instruction">根据时间，选择合适的活动。</p>
+
+<table>
+<thead>
+<tr><th>Время</th><th>Выбери действие</th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="cn">早上六点半</td>
+<td><select data-answer="起床">
+<option value="">Выбери</option>
+<option>吃午饭</option><option>睡觉</option><option>起床</option>
+<option>吃早饭</option><option>下班</option><option>吃晚饭</option>
+</select></td>
+</tr>
+<tr>
+<td class="cn">早上七点</td>
+<td><select data-answer="吃早饭">
+<option value="">Выбери</option>
+<option>吃午饭</option><option>睡觉</option><option>起床</option>
+<option>吃早饭</option><option>下班</option><option>吃晚饭</option>
+</select></td>
+</tr>
+<tr>
+<td class="cn">中午十二点</td>
+<td><select data-answer="吃午饭">
+<option value="">Выбери</option>
+<option>吃午饭</option><option>睡觉</option><option>起床</option>
+<option>吃早饭</option><option>下班</option><option>吃晚饭</option>
+</select></td>
+</tr>
+<tr>
+<td class="cn">下午六点</td>
+<td><select data-answer="下班">
+<option value="">Выбери</option>
+<option>吃午饭</option><option>睡觉</option><option>起床</option>
+<option>吃早饭</option><option>下班</option><option>吃晚饭</option>
+</select></td>
+</tr>
+<tr>
+<td class="cn">晚上七点</td>
+<td><select data-answer="吃晚饭">
+<option value="">Выбери</option>
+<option>吃午饭</option><option>睡觉</option><option>起床</option>
+<option>吃早饭</option><option>下班</option><option>吃晚饭</option>
+</select></td>
+</tr>
+<tr>
+<td class="cn">晚上十一点</td>
+<td><select data-answer="睡觉">
+<option value="">Выбери</option>
+<option>吃午饭</option><option>睡觉</option><option>起床</option>
+<option>吃早饭</option><option>下班</option><option>吃晚饭</option>
+</select></td>
+</tr>
+</tbody>
+</table>
+
+<button class="check" onclick="checkInputs(this)">Проверить ответы</button>
+<button class="secondary" onclick="showAnswers(this)">Показать ответы</button>
+<div class="feedback"></div>
+<div class="answer cn">
+<p>早上六点半 — 起床</p>
+<p>早上七点 — 吃早饭</p>
+<p>中午十二点 — 吃午饭</p>
+<p>下午六点 — 下班</p>
+<p>晚上七点 — 吃晚饭</p>
+<p>晚上十一点 — 睡觉</p>
+<p>Затем составь предложения:</p>
+<p>我早上六点半起床。</p>
+<p>我早上七点吃早饭。</p>
+<p>我中午十二点吃午饭。</p>
+<p>我下午六点下班。</p>
+<p>我晚上七点吃晚饭。</p>
+<p>我晚上十一点睡觉。</p>
+</div>
+
+<h3>Упражнение 13. Который час?</h3>
+<p class="instruction">回答问题。</p>
+
+<div class="example">
+教师：<span class="cn">现在几点？</span><br>
+学生：<span class="cn">现在早上七点半。</span>
+</div>
+
+<p>Ответь на вопросы о своём распорядке дня.</p>
+
+<ol class="cn">
+<li>你几点起床？</li>
+<li>你几点吃早饭？</li>
+<li>你几点上班 / 上学？</li>
+<li>你几点吃午饭？</li>
+<li>你几点下班 / 下学？</li>
+<li>你几点吃晚饭？</li>
+<li>你几点做作业？</li>
+<li>你几点学习汉语？</li>
+<li>你几点睡觉？</li>
+</ol>
+
+<textarea placeholder="Запиши ответы"></textarea>
+
+<div class="note">
+<strong>Усложнение:</strong> добавь конструкции 先……然后…….
+Например: <span class="cn">我早上七点起床。我先起床，然后吃早饭。</span>
+</div>
+
+<h3>Упражнение 14. Дни недели: заполни пропуски</h3>
+<p class="instruction">完成句子。 Используй дни недели:</p>
+
+<div class="word-bank cn">
+<span>星期一</span><span>星期二</span><span>星期三</span>
+<span>星期四</span><span>星期五</span><span>星期六</span>
+<span>星期天</span>
+</div>
+
+<div class="question">
+<p>1. <span class="cn">星期一以后是______。</span></p>
+<select data-answer="星期二">
+<option value="">Выбери день</option>
+<option>星期一</option><option>星期二</option><option>星期三</option>
+<option>星期四</option><option>星期五</option><option>星期六</option><option>星期天</option>
+</select>
+</div>
+
+<div class="question">
+<p>2. <span class="cn">星期三以前是______。</span></p>
+<select data-answer="星期二">
+<option value="">Выбери день</option>
+<option>星期一</option><option>星期二</option><option>星期三</option>
+<option>星期四</option><option>星期五</option><option>星期六</option><option>星期天</option>
+</select>
+</div>
+
+<div class="question">
+<p>3. <span class="cn">星期五以后是______。</span></p>
+<select data-answer="星期六">
+<option value="">Выбери день</option>
+<option>星期一</option><option>星期二</option><option>星期三</option>
+<option>星期四</option><option>星期五</option><option>星期六</option><option>星期天</option>
+</select>
+</div>
+
+<div class="question">
+<p>4. <span class="cn">星期天以前是______。</span></p>
+<select data-answer="星期六">
+<option value="">Выбери день</option>
+<option>星期一</option><option>星期二</option><option>星期三</option>
+<option>星期四</option><option>星期五</option><option>星期六</option><option>星期天</option>
+</select>
+</div>
+
+<div class="question">
+<p>5. <span class="cn">星期二以后是______。</span></p>
+<select data-answer="星期三">
+<option value="">Выбери день</option>
+<option>星期一</option><option>星期二</option><option>星期三</option>
+<option>星期四</option><option>星期五</option><option>星期六</option><option>星期天</option>
+</select>
+</div>
+
+<div class="question">
+<p>6. <span class="cn">星期四以前是______。</span></p>
+<select data-answer="星期三">
+<option value="">Выбери день</option>
+<option>星期一</option><option>星期二</option><option>星期三</option>
+<option>星期四</option><option>星期五</option><option>星期六</option><option>星期天</option>
+</select>
+</div>
+
+<button class="check" onclick="checkInputs(this)">Проверить ответы</button>
+<button class="secondary" onclick="showAnswers(this)">Показать ответы</button>
+<div class="feedback"></div>
+<div class="answer cn">
+1. 星期二　2. 星期二　3. 星期六　4. 星期六　5. 星期三　6. 星期三
+</div>
+
+<h3>Упражнение 15. Распорядок недели</h3>
+<p class="instruction">根据自己的实际情况完成表格。</p>
+
+<p>Заполни расписание. Ты можешь изменить дни, время и действия.</p>
+
+<table>
+<thead>
+<tr><th>День</th><th>Время</th><th>Действия</th></tr>
+</thead>
+<tbody>
+<tr><td class="cn">星期一</td><td><input type="text" value="早上七点"></td><td><input type="text" value="起床、吃早饭"></td></tr>
+<tr><td class="cn">星期二</td><td><input type="text" value="晚上八点"></td><td><input type="text" value="学习汉语"></td></tr>
+<tr><td class="cn">星期三</td><td><input type="text" value="下午六点"></td><td><input type="text" value="做运动"></td></tr>
+<tr><td class="cn">星期四</td><td><input type="text" value="晚上七点"></td><td><input type="text" value="做饭"></td></tr>
+<tr><td class="cn">星期五</td><td><input type="text" value="晚上八点"></td><td><input type="text" value="看电影"></td></tr>
+<tr><td class="cn">星期六</td><td><input type="text" value="上午十点"></td><td><input type="text" value="骑自行车"></td></tr>
+<tr><td class="cn">星期天</td><td><input type="text" value="下午三点"></td><td><input type="text" value="看书、休息"></td></tr>
+</tbody>
+</table>
+
+<p><strong>Задание:</strong> расскажи о своей неделе, используя не менее пяти предложений.</p>
+
+<textarea placeholder="Напиши рассказ о своей неделе"></textarea>
+
+<button class="secondary" onclick="showAnswers(this)">Показать образец</button>
+<div class="answer cn">
+星期一我早上七点起床，然后吃早饭。星期二晚上八点我学习汉语。
+星期三下午六点我做运动。星期五晚上我喜欢看电影。
+星期六我常常骑自行车。星期天我休息，也看书。
+</div>
+</section>
+
+<!-- ОБЩИЕ УПРАЖНЕНИЯ -->
+
+<section class="card" id="combined">
+<h2>7. Комбинированные упражнения</h2>
+
+<h3>Упражнение 16. Выбери подходящую конструкцию</h3>
+<p class="instruction">选择合适的词语填空。</p>
+
+<p>Используй: <span class="cn">一点儿、先……然后……、喜欢、会、都</span>.</p>
+
+<div class="question">
+<p>1. <span class="cn">我______看书，也______看电影。</span></p>
+<select data-answer="喜欢">
+<option value="">Выбери слово</option><option>喜欢</option><option>会</option><option>都</option>
+</select>
+<select data-answer="喜欢">
+<option value="">Выбери слово</option><option>喜欢</option><option>会</option><option>都</option>
+</select>
+</div>
+
+<div class="question">
+<p>2. <span class="cn">我和我的朋友______喜欢骑自行车。</span></p>
+<select data-answer="都">
+<option value="">Выбери слово</option><option>喜欢</option><option>会</option><option>都</option>
+</select>
+</div>
+
+<div class="question">
+<p>3. <span class="cn">我每天学习______汉语。</span></p>
+<select data-answer="一点儿">
+<option value="">Выбери слово</option><option>一点儿</option><option>喜欢</option><option>都</option>
+</select>
+</div>
+
+<div class="question">
+<p>4. <span class="cn">我早上七点起床，______吃早饭，______上班。</span></p>
+<select data-answer="先">
+<option value="">Выбери слово</option><option>先</option><option>然后</option><option>都</option>
+</select>
+<select data-answer="然后">
+<option value="">Выбери слово</option><option>先</option><option>然后</option><option>都</option>
+</select>
+</div>
+
+<div class="question">
+<p>5. <span class="cn">我______做饭，但是我不______开车。</span></p>
+<select data-answer="会">
+<option value="">Выбери слово</option><option>喜欢</option><option>会</option><option>都</option>
+</select>
+<select data-answer="会">
+<option value="">Выбери слово</option><option>喜欢</option><option>会</option><option>都</option>
+</select>
+</div>
+
+<div class="question">
+<p>6. <span class="cn">星期六和星期天我______休息。</span></p>
+<select data-answer="都">
+<option value="">Выбери слово</option><option>喜欢</option><option>会</option><option>都</option>
+</select>
+</div>
+
+<div class="question">
+<p>7. <span class="cn">我想看______书。</span></p>
+<select data-answer="一点儿">
+<option value="">Выбери слово</option><option>一点儿</option><option>喜欢</option><option>都</option>
+</select>
+</div>
+
+<div class="question">
+<p>8. <span class="cn">我每天晚上______做作业，______看电视。</span></p>
+<select data-answer="先">
+<option value="">Выбери слово</option><option>先</option><option>然后</option><option>都</option>
+</select>
+<select data-answer="然后">
+<option value="">Выбери слово</option><option>先</option><option>然后</option><option>都</option>
+</select>
+</div>
+
+<button class="check" onclick="checkInputs(this)">Проверить ответы</button>
+<button class="secondary" onclick="showAnswers(this)">Показать ответы</button>
+<div class="feedback"></div>
+<div class="answer">
+<ol>
+<li class="cn">喜欢，喜欢</li>
+<li class="cn">都</li>
+<li class="cn">一点儿</li>
+<li class="cn">先，然后</li>
+<li class="cn">会，会</li>
+<li class="cn">都</li>
+<li class="cn">一点儿</li>
+<li class="cn">先，然后</li>
+</ol>
+<p>В пятом предложении: <span class="cn">会做饭</span> — умею готовить; <span class="cn">不会开车</span> — не умею водить машину.</p>
+</div>
+
+<h3>Упражнение 17. Переведи на китайский</h3>
+<p class="instruction">把句子翻译成中文。</p>
+
+<ol>
+<li>Я люблю читать книги.</li>
+<li>Я умею готовить, но не умею водить машину.</li>
+<li>Мы все любим смотреть фильмы.</li>
+<li>В понедельник я встаю в семь часов, а потом завтракаю.</li>
+<li>В субботу и воскресенье я отдыхаю.</li>
+<li>Я каждый день немного изучаю китайский язык.</li>
+<li>Сначала я заканчиваю работу, потом готовлю ужин.</li>
+<li>Мои друзья все умеют кататься на велосипеде.</li>
+<li>Во вторник вечером я люблю гулять.</li>
+<li>Сначала я делаю домашнее задание, потом смотрю телевизор.</li>
+<li>Я люблю заниматься спортом, но не люблю бегать.</li>
+<li>В воскресенье я немного читаю и отдыхаю.</li>
+</ol>
+
+<textarea placeholder="Напиши перевод на китайском языке"></textarea>
+
+<button class="secondary" onclick="showAnswers(this)">Показать возможные ответы</button>
+<div class="answer cn">
+<ol>
+<li>我喜欢看书。</li>
+<li>我会做饭，但是不会开车。</li>
+<li>我们都喜欢看电影。</li>
+<li>星期一我七点起床，然后吃早饭。</li>
+<li>星期六和星期天我都休息。</li>
+<li>我每天学习一点儿汉语。</li>
+<li>我先下班，然后做饭。</li>
+<li>我的朋友都会骑自行车。</li>
+<li>星期二晚上我喜欢散步。</li>
+<li>我先做作业，然后看电视。</li>
+<li>我喜欢做运动，但是不喜欢跑步。</li>
+<li>星期天我看一点儿书，也休息。</li>
+</ol>
+<p>В некоторых предложениях возможны другие естественные варианты перевода.</p>
+</div>
+
+<h3>Упражнение 18. Найди человека с похожим расписанием</h3>
+<p class="instruction">找一个和你有相同习惯的同学。</p>
+
+<p>Задавай вопросы одногруппникам и найди человека, у которого похожий распорядок дня.</p>
+
+<table>
+<thead>
+<tr><th>Вопрос</th><th>Имя и ответ</th></tr>
+</thead>
+<tbody>
+<tr><td class="cn">你星期一上班吗？</td><td><input type="text"></td></tr>
+<tr><td class="cn">你早上七点起床吗？</td><td><input type="text"></td></tr>
+<tr><td class="cn">你每天学习汉语吗？</td><td><input type="text"></td></tr>
+<tr><td class="cn">你喜欢看电影吗？</td><td><input type="text"></td></tr>
+<tr><td class="cn">你会做饭吗？</td><td><input type="text"></td></tr>
+<tr><td class="cn">你星期六休息吗？</td><td><input type="text"></td></tr>
+<tr><td class="cn">你喜欢跑步还是散步？</td><td><input type="text"></td></tr>
+<tr><td class="cn">你晚上十点睡觉吗？</td><td><input type="text"></td></tr>
+<tr><td class="cn">你喜欢骑自行车吗？</td><td><input type="text"></td></tr>
+<tr><td class="cn">你每天做一点儿运动吗？</td><td><input type="text"></td></tr>
+</tbody>
+</table>
+
+<p>После опроса составь небольшой рассказ о найденном партнёре.</p>
+<textarea placeholder="Напиши рассказ о своём партнёре"></textarea>
+
+<button class="secondary" onclick="showAnswers(this)">Показать образец</button>
+<div class="answer cn">
+我和安娜的生活习惯很像。我们都喜欢看电影，也都喜欢散步。
+我们都会做饭。星期六我们都休息。但是我早上七点起床，
+安娜早上八点起床。
+</div>
+</section>
+
+<!-- ИТОГОВОЕ ЗАДАНИЕ -->
+
+<section class="card" id="final">
+<h2>8. Итоговое задание: 我的一个星期</h2>
+
+<p class="instruction">任务：介绍你的一周。</p>
+
+<p>Подготовь рассказ о своей неделе на китайском языке.</p>
+
+<h3>Что нужно включить в рассказ</h3>
+<ul>
+<li>Назвать минимум четыре дня недели.</li>
+<li>Указать время минимум для четырёх действий.</li>
+<li>Использовать не менее двух предложений с <span class="cn">先……然后……</span>.</li>
+<li>Использовать <span class="cn">喜欢</span> минимум два раза.</li>
+<li>Использовать <span class="cn">会</span> минимум один раз.</li>
+<li>Использовать <span class="cn">都</span> минимум один раз.</li>
+<li>Использовать <span class="cn">一点儿</span> минимум один раз.</li>
+<li>Включить не менее восьми словосочетаний из изученного списка.</li>
+</ul>
+
+<h3>План рассказа</h3>
+
+<div class="example">
+<h4 class="cn">第一部分：我的早上</h4>
+<ul>
+<li class="cn">你几点起床？</li>
+<li class="cn">你几点吃早饭？</li>
+<li class="cn">你先做什么，然后做什么？</li>
+</ul>
+</div>
+
+<div class="example">
+<h4 class="cn">第二部分：我的白天</h4>
+<ul>
+<li class="cn">你几点上班 / 上学？</li>
+<li class="cn">你几点吃午饭？</li>
+<li class="cn">你会做什么？</li>
+</ul>
+</div>
+
+<div class="example">
+<h4 class="cn">第三部分：我的晚上</h4>
+<ul>
+<li class="cn">你几点下班 / 下学？</li>
+<li class="cn">你喜欢做什么？</li>
+<li class="cn">你先做什么，然后做什么？</li>
+</ul>
+</div>
+
+<div class="example">
+<h4 class="cn">第四部分：我的周末</h4>
+<ul>
+<li class="cn">星期六和星期天你做什么？</li>
+<li class="cn">你喜欢运动吗？</li>
+<li class="cn">你和朋友都喜欢做什么？</li>
+</ul>
+</div>
+
+<h3>Напиши свой рассказ</h3>
+<textarea style="min-height:250px" placeholder="我的一个星期……"></textarea>
+
+<button class="secondary" onclick="showAnswers(this)">Показать пример рассказа</button>
+
+<div class="answer cn">
+<h4>我的一个星期</h4>
+
+星期一到星期五，我每天早上七点起床，然后吃早饭。
+八点我上班。中午十二点我吃午饭。下午六点我下班，然后回家。
+
+晚上我先做饭，然后吃晚饭。我喜欢看书，也喜欢看电影。
+我会做饭，但是不会开车。我每天学习一点儿汉语。
+
+星期六我喜欢骑自行车，也喜欢散步。星期天我休息，
+有时候看电视，有时候做运动。我和我的朋友都喜欢看电影。
+星期天晚上我先做一点儿作业，然后睡觉。
+</div>
+
+<h3>Самопроверка</h3>
+<p>Отметь, что ты использовал в рассказе.</p>
+
+<label><input type="checkbox" class="selfcheck"> Я назвал минимум четыре дня недели.</label><br>
+<label><input type="checkbox" class="selfcheck"> Я указал время для четырёх действий.</label><br>
+<label><input type="checkbox" class="selfcheck"> Я использовал 先……然后…… два раза.</label><br>
+<label><input type="checkbox" class="selfcheck"> Я использовал 喜欢 минимум два раза.</label><br>
+<label><input type="checkbox" class="selfcheck"> Я использовал 会.</label><br>
+<label><input type="checkbox" class="selfcheck"> Я использовал 都.</label><br>
+<label><input type="checkbox" class="selfcheck"> Я использовал 一点儿.</label><br>
+<label><input type="checkbox" class="selfcheck"> Я включил минимум восемь знакомых словосочетаний.</label>
+</section>
+
+<div class="card">
+<h2>Отличная работа！</h2>
+<p>
+Теперь ты можешь рассказать о своём распорядке дня и недели,
+выразить предпочтения, описать свои умения и связать действия
+в правильной последовательности.
+</p>
+<p class="cn" style="font-size:24px;text-align:center">加油！</p>
+<p style="text-align:center">Продолжай практиковаться!</p>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})">Вернуться к началу</button>
+</div>
+
+</div>
+
+<footer>
+我的中文课 · Интерактивный урок китайского языка
+</footer>
+
+<script>
+function showAnswers(button) {
+const questionBlock = button.closest('.card, section');
+const next = button.nextElementSibling;
+
+if (next && next.classList.contains('answer')) {
+next.classList.toggle('visible');
+button.textContent = next.classList.contains('visible')
+? 'Скрыть ответы'
+: 'Показать ответы';
+return;
+}
+
+if (questionBlock) {
+const answers = questionBlock.querySelectorAll('.answer');
+if (answers.length) {
+answers.forEach(answer => answer.classList.add('visible'));
+}
+}
+}
+
+function toggleAllAnswers(show) {
+document.querySelectorAll('.answer').forEach(answer => {
+answer.classList.toggle('visible', show);
+});
+
+document.querySelectorAll('button.secondary').forEach(button => {
+if (button.textContent.includes('Показать')) {
+button.textContent = show ? 'Скрыть ответы' : 'Показать ответы';
+} else if (button.textContent === 'Скрыть ответы') {
+button.textContent = show ? 'Скрыть ответы' : 'Показать ответы';
+}
+});
+}
+
+function normalize(text) {
+return (text || '')
+.replace(/\s+/g, '')
+.replace(/[，,]/g, '，')
+.trim();
+}
+
+function checkInputs(button) {
+const block = button.closest('.card, section');
+const fields = block.querySelectorAll(
+'input[data-answer], select[data-answer]'
+);
+
+let correct = 0;
+let total = 0;
+
+fields.forEach(field => {
+total++;
+const expected = normalize(field.dataset.answer);
+const actual = normalize(field.value);
+
+field.style.borderColor = '';
+
+if (actual === expected) {
+correct++;
+field.style.borderColor = '#26734d';
+} else {
+field.style.borderColor = '#c84c4c';
+}
+});
+
+const feedback = button.parentElement.querySelector('.feedback')
+|| block.querySelector('.feedback');
+
+if (feedback) {
+feedback.textContent = 'Правильных ответов: ' + correct + ' из ' + total;
+feedback.className = 'feedback ' +
+(correct === total ? 'correct' : 'incorrect');
+}
+
+updateProgress();
+}
+
+function updateProgress() {
+const exercises = document.querySelectorAll(
+'.card h3'
+);
+
+const total = exercises.length;
+const completed = document.querySelectorAll(
+'.selfcheck:checked'
+).length;
+
+const progressBar = document.getElementById('progressBar');
+const progressText = document.getElementById('progressText');
+
+if (progressBar) {
+progressBar.style.width = total
+? Math.round(completed / 8 * 100) + '%'
+: '0%';
+}
+
+if (progressText) {
+progressText.textContent =
+'Отмечено пунктов самопроверки: ' + completed + ' из 8';
+}
+}
+
+document.querySelectorAll('.selfcheck').forEach(box => {
+box.addEventListener('change', updateProgress);
+});
+</script>
+
+</body>
+</html>
